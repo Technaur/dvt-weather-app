@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import forecastSlice from "./slice/forecastSlice";
+import reactotron from "../../../ReactotronConfig";
 
 // import devToolsEnhancer from "remote-redux-devtools";
 
@@ -11,6 +12,7 @@ export const store = configureStore({
   },
   // enhancers: [devToolsEnhancer({ realtime: true, port: 8000 })],
   devTools: true,
+  enhancers: [reactotron.createEnhancer()],
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
