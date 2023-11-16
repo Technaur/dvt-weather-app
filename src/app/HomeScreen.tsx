@@ -1,6 +1,9 @@
-import { Button, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
 import { useGetForecastByLatAndLongQuery } from "./redux/apiSlice";
+import Loader from "./components/Loader";
+import WeatherOverview from "./components/WeatherOverview";
+import WeatherForecast from "./components/WeatherForecast";
 
 export default function HomeScreen() {
   const {
@@ -12,18 +15,24 @@ export default function HomeScreen() {
     lat: "-34.02478408032439",
     long: "22.451752972728862",
   });
-  console.tron.log("data", forecastByLatAndLong);
+
+  const [forecastData, setForecastData] = useState(forecastByLatAndLong);
+
+  console.tron.log("QQQ: forecastByLatAndLong state", forecastByLatAndLong);
+
   return (
-    <View>
-      {isLoading ? <Text>Loading...</Text> : <Text>HomeScreen</Text>}
-      <Button
-        title="Press me"
-        onPress={() => {
-          console.tron.log("Pressed");
-        }}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <Loader isLoading={isLoading} />
+        <WeatherOverview />
+        <WeatherForecast />
+      </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
