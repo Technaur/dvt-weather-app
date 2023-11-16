@@ -1,5 +1,38 @@
-export const isWindy = (windSpeed: number = 0): boolean => {
-  //Source: http://gyre.umeoce.maine.edu/data/gomoos/buoy/php/variable_description.php?variable=wind_2_speed (Accessed 16 November 2023)
+import { images } from "../styles/Images";
+import { colors } from "../styles/Theme";
 
-  return windSpeed > 10;
+export const isCloudy = (value: string = ""): boolean => {
+  return value.includes("Clouds");
+};
+
+export const isRainy = (value: string = ""): boolean => {
+  return (
+    value.includes("Rain") ||
+    value.includes("Drizzle") ||
+    value.includes("Thunderstorm")
+  );
+};
+
+export const generateWeatherBackground = (value: string = ""): any => {
+  if (isCloudy(value)) {
+    return images.cloudy;
+  }
+  if (isRainy(value)) {
+    return images.rainy;
+  }
+  return images.sunny;
+};
+
+export const convertKelvinToCelsius = (value: number = 0): number => {
+  return Math.round(value - 273.15);
+};
+
+export const generateBackgroundHexColour = (value: string = ""): string => {
+  let colour = isCloudy(value)
+    ? colors.cloudy
+    : isRainy(value)
+    ? colors.rainy
+    : colors.sunny;
+
+  return colour;
 };
