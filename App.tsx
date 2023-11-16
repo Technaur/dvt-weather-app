@@ -4,12 +4,12 @@ import HomeScreen from "./src/app/HomeScreen";
 import { store } from "./src/app/redux/store";
 import { Provider } from "react-redux";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
-import { forecastApi } from "./src/app/redux/apiSlice";
+import { weatherApi } from "./src/app/redux/apiSlice";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <ApiProvider api={forecastApi}>
+      <ApiProvider api={weatherApi}>
         <View style={styles.container}>
           <HomeScreen />
           <StatusBar style="auto" />

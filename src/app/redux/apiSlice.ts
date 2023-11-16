@@ -5,8 +5,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/";
 const apiKey = "e32b717569220a1c0581614554cc99e6";
 
-export const forecastApi = createApi({
-  reducerPath: "forecastApi",
+export const weatherApi = createApi({
+  reducerPath: "weatherApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
@@ -15,7 +15,14 @@ export const forecastApi = createApi({
       query: ({ lat, long }: any) =>
         `forecast?lat=${lat}&lon=${long}&appid=${apiKey}`,
     }),
+    getCurrentWeatherByLatAndLong: builder.query<any, string>({
+      query: ({ lat, long }: any) =>
+        `weather?lat=${lat}&lon=${long}&appid=${apiKey}`,
+    }),
   }),
 });
 
-export const { useGetForecastByLatAndLongQuery } = forecastApi;
+export const {
+  useGetForecastByLatAndLongQuery,
+  useGetCurrentWeatherByLatAndLongQuery,
+} = weatherApi;

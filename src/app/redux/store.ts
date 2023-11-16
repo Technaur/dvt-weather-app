@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import forecastSlice from "./slice/forecastSlice";
 import reactotron from "../../../ReactotronConfig";
-import { forecastApi } from "./apiSlice";
+import { weatherApi } from "./apiSlice";
 
 // import devToolsEnhancer from "remote-redux-devtools";
 
@@ -10,13 +10,13 @@ declare const window: any & typeof globalThis;
 export const store = configureStore({
   reducer: {
     // forecast: forecastSlice,
-    [forecastApi.reducerPath]: forecastApi.reducer,
+    [weatherApi.reducerPath]: weatherApi.reducer,
   },
   // enhancers: [devToolsEnhancer({ realtime: true, port: 8000 })],
   devTools: __DEV__,
   enhancers: [reactotron.createEnhancer()],
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(forecastApi.middleware),
+    getDefaultMiddleware().concat(weatherApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
