@@ -1,7 +1,7 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { images } from "../styles/Images";
-import { useGetForecastByLatAndLongQuery } from "../redux/apiSlice";
+import { useGetCurrentWeatherByLatAndLongQuery } from "../redux/apiSlice";
 
 type Props = {};
 
@@ -11,12 +11,26 @@ const WeatherOverview = (props: Props) => {
     error,
     isError,
     isLoading,
-  } = useGetForecastByLatAndLongQuery({
+  } = useGetCurrentWeatherByLatAndLongQuery({
     lat: "-34.02478408032439",
     long: "22.451752972728862",
   });
 
-  const [forecastData, setForecastData] = useState(forecastByLatAndLong);
+  const [forecastData, setForecastData] = useState(null);
+  const [kelvinTempData, setKelvinTempData] = useState(0);
+
+  useEffect(() => {
+    if (forecastByLatAndLong) {
+      setForecastData(forecastByLatAndLong);
+      if (
+        forecastByLatAndLong.main?.temp &&
+        forecastByLatAndLong.main?.temp_max &&
+        forecastByLatAndLong.main?.temp_min
+      ) {
+        setKelvinTempData(forecastByLatAndLong.main);
+      }
+    }
+  }, [forecastByLatAndLong]);
 
   console.tron.log("QQQ: forecastByLatAndLong state", forecastByLatAndLong);
   return (
