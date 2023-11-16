@@ -7,12 +7,13 @@ import {
   generateWeatherBackground,
 } from "../functions/WeatherFunctions";
 import { colors } from "../styles/Theme";
+import { Temperature, Weather } from "../Interfaces/WeatherInterfaces";
 
 type Props = {};
 
 const WeatherOverview = (props: Props) => {
   const {
-    data: forecastByLatAndLong,
+    data: currentByLatAndLong,
     error,
     isError,
     isLoading,
@@ -21,37 +22,24 @@ const WeatherOverview = (props: Props) => {
     long: "22.451752972728862",
   });
 
-  const [forecastData, setForecastData] = useState(null);
-  const [kelvinTempData, setKelvinTempData] = useState<{
-    temp: number;
-    temp_min: number;
-    temp_max: number;
-    feels_like: number;
-  }>();
-
-  const [weatherData, setWeatherData] = useState<{
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }>();
+  const [kelvinTempData, setKelvinTempData] = useState<Temperature>();
+  const [weatherData, setWeatherData] = useState<Weather>();
 
   useEffect(() => {
-    if (forecastByLatAndLong) {
-      setForecastData(forecastByLatAndLong);
+    if (currentByLatAndLong) {
       if (
-        forecastByLatAndLong.main?.temp &&
-        forecastByLatAndLong.main?.temp_max &&
-        forecastByLatAndLong.main?.temp_min
+        currentByLatAndLong.main?.temp &&
+        currentByLatAndLong.main?.temp_max &&
+        currentByLatAndLong.main?.temp_min
       ) {
-        setKelvinTempData(forecastByLatAndLong.main);
+        setKelvinTempData(currentByLatAndLong.main);
       }
 
-      if (forecastByLatAndLong.weather) {
-        setWeatherData(forecastByLatAndLong.weather[0]);
+      if (currentByLatAndLong.weather) {
+        setWeatherData(currentByLatAndLong.weather[0]);
       }
     }
-  }, [forecastByLatAndLong]);
+  }, [currentByLatAndLong]);
 
   return (
     <View style={{ flex: 1 }}>
