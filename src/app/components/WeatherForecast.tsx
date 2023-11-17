@@ -70,7 +70,7 @@ const WeatherForecast = (props: Props) => {
       setForecastValues(forecast);
     }
   }, [forecastByLatAndLong]);
-
+  console.tron.log("QQQ; background color", props.backgroundColor);
   return (
     <View
       style={[styles.container, { backgroundColor: props.backgroundColor }]}
@@ -99,7 +99,6 @@ export default WeatherForecast;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.sunny,
   },
   itemContainer: {
     flexDirection: "row",

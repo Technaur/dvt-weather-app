@@ -40,7 +40,9 @@ const WeatherOverview = (props: Props) => {
       }
 
       if (currentByLatAndLong.weather) {
-        props.onWeatherLoaded(currentByLatAndLong.weather[0].main);
+        props.onWeatherLoaded(
+          generateBackgroundHexColour(currentByLatAndLong.weather[0].main)
+        );
         setWeatherData(currentByLatAndLong.weather[0]);
       }
     }

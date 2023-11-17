@@ -29,7 +29,7 @@ export default function HomeScreen() {
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    console.tron.log("location", location);
+
     setLocation(location);
   };
 
@@ -65,7 +65,6 @@ export default function HomeScreen() {
           <Text>{errorMsg}</Text>
           <Button
             title="Enable location"
-            style={{ marginTop: 20, borderWidth: 1 }}
             onPress={async () => {
               if (Platform.OS === "android") {
                 await getLocationPermissions();
