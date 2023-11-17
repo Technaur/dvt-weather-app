@@ -8,6 +8,7 @@ import {
 } from "../functions/WeatherFunctions";
 import { colors } from "../styles/Theme";
 import { Temperature, Weather } from "../Interfaces/WeatherInterfaces";
+import Loader from "./Loader";
 
 type Props = {
   onWeatherLoaded: (value: string) => void;
@@ -51,43 +52,55 @@ const WeatherOverview = (props: Props) => {
         resizeMode="stretch"
         style={styles.imageBackgroundContainer}
       >
-        <View style={styles.container}>
-          <Text style={styles.textHeaderStyle}>
-            {convertKelvinToCelsius(kelvinTempData?.temp)}&deg;C
-          </Text>
+        {isLoading ? (
+          <Loader isLoading />
+        ) : (
+          <View style={styles.container}>
+            <Text style={styles.textHeaderStyle}>
+              {convertKelvinToCelsius(kelvinTempData?.temp)}&deg;C
+            </Text>
 
-          <Text style={styles.textLabelsStyle}>
-            {weatherData?.main.toString()}
-          </Text>
-        </View>
+            <Text style={styles.textLabelsStyle}>
+              {weatherData?.main.toString()}
+            </Text>
+          </View>
+        )}
       </ImageBackground>
+
       <View
         style={[
           styles.infoContainer,
           {
             backgroundColor: generateBackgroundHexColour(weatherData?.main),
+            justifyContent: "center",
           },
         ]}
       >
-        <View>
-          <Text style={styles.textLabelsStyle}>
-            {convertKelvinToCelsius(kelvinTempData?.temp_min)}&deg;C
-          </Text>
-          <Text style={styles.textLabelSmallStyle}>Min Temp</Text>
-        </View>
-        <View>
-          <Text style={styles.textLabelsStyle}>
-            {convertKelvinToCelsius(kelvinTempData?.feels_like)}&deg;C
-          </Text>
-          <Text style={styles.textLabelSmallStyle}>Feels Like</Text>
-        </View>
+        {isLoading ? (
+          <Loader isLoading />
+        ) : (
+          <View style={[styles.infoContainer, { flex: 1 }]}>
+            <View>
+              <Text style={styles.textLabelsStyle}>
+                {convertKelvinToCelsius(kelvinTempData?.temp_min)}&deg;C
+              </Text>
+              <Text style={styles.textLabelSmallStyle}>Min Temp</Text>
+            </View>
+            <View>
+              <Text style={styles.textLabelsStyle}>
+                {convertKelvinToCelsius(kelvinTempData?.feels_like)}&deg;C
+              </Text>
+              <Text style={styles.textLabelSmallStyle}>Feels Like</Text>
+            </View>
 
-        <View>
-          <Text style={styles.textLabelsStyle}>
-            {convertKelvinToCelsius(kelvinTempData?.temp_max)}&deg;C
-          </Text>
-          <Text style={styles.textLabelSmallStyle}>Max Temp</Text>
-        </View>
+            <View>
+              <Text style={styles.textLabelsStyle}>
+                {convertKelvinToCelsius(kelvinTempData?.temp_max)}&deg;C
+              </Text>
+              <Text style={styles.textLabelSmallStyle}>Max Temp</Text>
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
