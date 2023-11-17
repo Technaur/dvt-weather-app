@@ -11,3 +11,9 @@ export interface Temperature {
   temp_max: number;
   feels_like: number;
 }
+
+export interface Forecast {
+  date: string;
+  temperature: Temperature;
+  weather: Weather;
+}

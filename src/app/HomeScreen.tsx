@@ -4,14 +4,20 @@ import { useGetForecastByLatAndLongQuery } from "./redux/apiSlice";
 import Loader from "./components/Loader";
 import WeatherOverview from "./components/WeatherOverview";
 import WeatherForecast from "./components/WeatherForecast";
+import { colors } from "./styles/Theme";
 
 export default function HomeScreen() {
+  const [theme, setTheme] = useState<string>(colors.sunny);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        {/* <Loader isLoading={isLoading} /> */}
-        <WeatherOverview />
-        <WeatherForecast />
+        <WeatherOverview
+          onWeatherLoaded={(value: string) => {
+            setTheme(value);
+          }}
+        />
+        <WeatherForecast backgroundColor={theme} />
       </View>
     </SafeAreaView>
   );

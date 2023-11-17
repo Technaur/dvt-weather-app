@@ -9,7 +9,9 @@ import {
 import { colors } from "../styles/Theme";
 import { Temperature, Weather } from "../Interfaces/WeatherInterfaces";
 
-type Props = {};
+type Props = {
+  onWeatherLoaded: (value: string) => void;
+};
 
 const WeatherOverview = (props: Props) => {
   const {
@@ -36,6 +38,7 @@ const WeatherOverview = (props: Props) => {
       }
 
       if (currentByLatAndLong.weather) {
+        props.onWeatherLoaded(currentByLatAndLong.weather[0].main);
         setWeatherData(currentByLatAndLong.weather[0]);
       }
     }
