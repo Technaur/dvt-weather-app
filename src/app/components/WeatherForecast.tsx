@@ -17,6 +17,10 @@ import Icon from "./Icon";
 
 type Props = {
   backgroundColor: string;
+  coordinates: {
+    lat: number;
+    long: number;
+  };
 };
 
 const WeatherForecast = (props: Props) => {
@@ -25,10 +29,7 @@ const WeatherForecast = (props: Props) => {
     error,
     isError,
     isLoading,
-  } = useGetForecastByLatAndLongQuery({
-    lat: "-34.02478408032439",
-    long: "22.451752972728862",
-  });
+  } = useGetForecastByLatAndLongQuery(props.coordinates);
 
   const [forecastValues, setForecastValues] = useState<Forecast[]>();
 

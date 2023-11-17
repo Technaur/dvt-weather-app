@@ -12,6 +12,10 @@ import Loader from "./Loader";
 
 type Props = {
   onWeatherLoaded: (value: string) => void;
+  coordinates: {
+    lat: number;
+    long: number;
+  };
 };
 
 const WeatherOverview = (props: Props) => {
@@ -20,10 +24,7 @@ const WeatherOverview = (props: Props) => {
     error,
     isError,
     isLoading,
-  } = useGetCurrentWeatherByLatAndLongQuery({
-    lat: "-34.02478408032439",
-    long: "22.451752972728862",
-  });
+  } = useGetCurrentWeatherByLatAndLongQuery(props.coordinates);
 
   const [kelvinTempData, setKelvinTempData] = useState<Temperature>();
   const [weatherData, setWeatherData] = useState<Weather>();
