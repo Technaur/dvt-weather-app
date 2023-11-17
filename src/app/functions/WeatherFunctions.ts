@@ -23,6 +23,16 @@ export const generateWeatherBackground = (value: string = ""): any => {
   return images.sunny;
 };
 
+export const generateWeatherIcon = (value: string = ""): any => {
+  if (isCloudy(value)) {
+    return images.iconCloudy;
+  }
+  if (isRainy(value)) {
+    return images.iconRainy;
+  }
+  return images.iconSunny;
+};
+
 export const convertKelvinToCelsius = (value: number = 0): number => {
   return Math.round(value - 273.15);
 };
@@ -35,4 +45,15 @@ export const generateBackgroundHexColour = (value: string = ""): string => {
     : colors.sunny;
 
   return colour;
+};
+
+export const convertDateToDayOfWeek = (value: string = ""): string => {
+  let date = new Date(value);
+
+  //Weekday only without date
+  let dayOfWeek = date
+    .toLocaleDateString("en-ZA", { weekday: "long" })
+    .split(",")[0];
+
+  return dayOfWeek;
 };

@@ -8,10 +8,12 @@ import {
 import _ from "lodash";
 import { Forecast, Temperature } from "../Interfaces/WeatherInterfaces";
 import {
+  convertDateToDayOfWeek,
   convertKelvinToCelsius,
   generateWeatherBackground,
 } from "../functions/WeatherFunctions";
 import Loader from "./Loader";
+import Icon from "./Icon";
 
 type Props = {
   backgroundColor: string;
@@ -76,8 +78,11 @@ const WeatherForecast = (props: Props) => {
       {forecastValues?.map((item, index) => {
         return (
           <View style={styles.itemContainer} key={index}>
-            <Text style={styles.textContainer}>{item.date}</Text>
-            <Text style={styles.textContainer}>{item.weather.main}</Text>
+            <Text style={styles.textContainer}>
+              {convertDateToDayOfWeek(item.date)}
+            </Text>
+
+            <Icon iconName={item.weather.main} />
             <Text style={styles.textContainer}>
               {convertKelvinToCelsius(item.temperature.temp_max)}&deg;C
             </Text>
@@ -104,5 +109,9 @@ const styles = StyleSheet.create({
   textContainer: {
     color: colors.white,
     fontSize: 18,
+    maxWidth: 100,
+    flex: 1,
+    alignItems: "center",
+    textAlign: "center",
   },
 });
